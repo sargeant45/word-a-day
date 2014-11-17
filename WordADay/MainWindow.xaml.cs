@@ -14,6 +14,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
+using System.Windows.Interop;
+using System.Drawing.Printing;
+using System.Runtime.InteropServices;
+using System.Speech.Synthesis;
 
 namespace WordADay
 {
@@ -25,6 +29,22 @@ namespace WordADay
         public MainWindow()
         {
             InitializeComponent();
+            newWord();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            string define = label1.Content.ToString();
+            System.Diagnostics.Process.Start("http://www.dictionary.reference.com/browse/" + define);
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            newWord();
+        }
+
+        public void newWord()
+        {
             string dictionarypath = Directory.GetCurrentDirectory() + "/dictionary.txt";
             List<string> lines = new List<string>();
 
@@ -45,16 +65,26 @@ namespace WordADay
                 }
             }
             Random word = new Random();
-            int randomword = word.Next(1,58110);
+            int randomword = word.Next(1, 58110);
             label1.Content = ((string)lines[randomword]);
-            
-
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string define = label1.Content.ToString();
-            System.Diagnostics.Process.Start("http://www.dictionary.reference.com/browse/" + define);
+            about.IsOpen = true;
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://sargeant45.github.com");
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            SpeechSynthesizer say = new SpeechSynthesizer();
+            say.SetOutputToDefaultAudioDevice();
+            say.Speak(label1.Content.ToString());
+        }
+
     }
 }
