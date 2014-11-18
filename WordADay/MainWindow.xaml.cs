@@ -18,6 +18,7 @@ using System.Windows.Interop;
 using System.Drawing.Printing;
 using System.Runtime.InteropServices;
 using System.Speech.Synthesis;
+using System.Windows.Forms;
 
 namespace WordADay
 {
@@ -47,6 +48,7 @@ namespace WordADay
         {
             string dictionarypath = Directory.GetCurrentDirectory() + "/dictionary.txt";
             List<string> lines = new List<string>();
+            string path = Directory.GetCurrentDirectory() + "/excludedwords.txt";
 
             // 2
             // Use using StreamReader for disposing.
@@ -64,9 +66,33 @@ namespace WordADay
                     lines.Add(line);
                 }
             }
+
             Random word = new Random();
             int randomword = word.Next(1, 58110);
-            label1.Content = ((string)lines[randomword]);
+            string text = ((string)lines[randomword]);
+
+            if (File.Exists(path))
+            {
+                if (File.ReadLines(path).Count() > 58110)
+                {
+                    File.WriteAllText(path, " ");
+                }
+                if (File.ReadAllLines(path).Contains(text))
+                {
+                    randomword = word.Next(58110);
+                    System.IO.File.AppendAllText(path, text + Environment.NewLine);
+                }
+                label1.Content = text;
+                File.AppendAllText(path, text + Environment.NewLine);
+            }
+            else
+            {
+                File.WriteAllText(path, text + Environment.NewLine);
+                label1.Content = text;
+            }
+
+            
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -84,6 +110,38 @@ namespace WordADay
             SpeechSynthesizer say = new SpeechSynthesizer();
             say.SetOutputToDefaultAudioDevice();
             say.Speak(label1.Content.ToString());
+        }
+
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("mailto:ethanarterberry@gmail.com");
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            givethanks.IsOpen = true;
+        }
+
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.Clipboard.SetText(label1.Content.ToString());
+            button4.Content = "Copied!";
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            string path = Directory.GetCurrentDirectory() + "/excludedwords.txt";
+            string allpastwords = File.ReadAllText(path);
+            pastwordsbox.Text = allpastwords;
+            pastwords.IsOpen = true;
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            string path = Directory.GetCurrentDirectory() + "/excludedwords.txt";
+            File.WriteAllText(path, "");
+            pastwordsbox.Text = " ";
         }
 
     }

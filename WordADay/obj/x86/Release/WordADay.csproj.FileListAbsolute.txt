@@ -1,0 +1,16 @@
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\bin\Release\WordADay.exe
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\bin\Release\WordADay.pdb
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\bin\Release\MahApps.Metro.dll
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\bin\Release\System.Windows.Interactivity.dll
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\MainWindow.baml
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\App.baml
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\MainWindow.g.cs
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\App.g.cs
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\WordADay_MarkupCompile.cache
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\WordADay.g.resources
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\WordADay.Properties.Resources.resources
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\WordADay.exe
+C:\Documents and Settings\admin\my documents\visual studio 2010\Projects\WordADay\WordADay\obj\x86\Release\WordADay.pdb
