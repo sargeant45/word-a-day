@@ -46,53 +46,49 @@ namespace WordADay
 
         public void newWord()
         {
+            #region Create path variables
             string dictionarypath = Directory.GetCurrentDirectory() + "/dictionary.txt";
-            List<string> lines = new List<string>();
             string path = Directory.GetCurrentDirectory() + "/excludedwords.txt";
+            #endregion
 
-            // 2
-            // Use using StreamReader for disposing.
-            using (StreamReader r = new StreamReader(dictionarypath))
-            {
-                // 3
-                // Use while != null pattern for loop
-                string line;
-                while ((line = r.ReadLine()) != null)
-                {
-                    // 4
-                    // Insert logic here.
-                    // ...
-                    // "line" is a line in the file. Add it to our List.
-                    lines.Add(line);
-                }
-            }
-
+            #region Setup
             Random word = new Random();
             int randomword = word.Next(1, 58110);
-            string text = ((string)lines[randomword]);
-
-            if (File.Exists(path))
+            string[] lines = File.ReadAllLines(dictionarypath);
+            string[] excludedlines;
+            if (!File.Exists(path))
             {
-                if (File.ReadLines(path).Count() > 58110)
-                {
-                    File.WriteAllText(path, " ");
-                }
-                if (File.ReadAllLines(path).Contains(text))
+                File.Create(path);
+            }
+            excludedlines = File.ReadAllLines(path);
+            string chosenWord = lines[randomword];
+            #endregion
+
+            #region Logic
+            if (excludedlines.Count() == 58110)
+            {
+                File.WriteAllText(path, "");
+            }
+            if (excludedlines.Contains(chosenWord))
+            {
+                while (excludedlines.Contains(chosenWord))
                 {
                     randomword = word.Next(58110);
-                    System.IO.File.AppendAllText(path, text + Environment.NewLine);
+                    chosenWord = lines[randomword];
                 }
-                label1.Content = text;
-                File.AppendAllText(path, text + Environment.NewLine);
+                
+                File.AppendAllText(path, chosenWord + Environment.NewLine);
+                excludedlines = File.ReadAllLines(path);
+                label1.Content = chosenWord;
+
             }
             else
             {
-                File.WriteAllText(path, text + Environment.NewLine);
-                label1.Content = text;
+                File.AppendAllText(path, chosenWord + Environment.NewLine);
+                excludedlines = File.ReadAllLines(path);
+                label1.Content = chosenWord;
             }
-
-            
-            
+            #endregion
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
