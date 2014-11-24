@@ -16,8 +16,12 @@
           // add the random line in a div
           document.getElementsByName( 'random-phrase' )[0].innerHTML = randomLine;
       };
-      request.open( 'GET', 'dictionary.txt', true );
+      request.open( 'GET', 'https://raw.githubusercontent.com/sargeant45/word-a-day/gh-pages/WordADay/bin/Debug/dictionary.txt', true );
       request.send();
+    }
+    function define() {
+      var word = document.getElementsByName ( 'random-phrase' )[0].innerHTML;
+      window.open("http://dictionary.reference.com/browse/" + word)
     }
     </script>
   </head>
@@ -25,6 +29,7 @@
     <div style="position: relative; top: 50%; transform: translateY(-50%); position:absolute; width:300px; height:200px; z-index:15; top:50%; left:50%; margin:-100px 0 0 -150px;">
       <h1 style="font-family: Arial, Helvetica, sans-serif;" name="random-phrase">Loading a word...</h1>
       <button onclick="newWord()">New Word</button>
+      <button onclick="define()">Define</button>
       <script>newWord()</script>
     </div>
   </body>
