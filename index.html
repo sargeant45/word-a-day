@@ -16,7 +16,7 @@
           // add the random line in a div
           document.getElementsByName( 'random-phrase' )[0].innerHTML = randomLine;
       };
-      request.open( 'GET', 'https://raw.githubusercontent.com/sargeant45/word-a-day/gh-pages/WordADay/bin/Debug/dictionary.txt', true );
+      request.open( 'GET', 'dictionary.txt', true );
       request.send();
     }
     function define() {
