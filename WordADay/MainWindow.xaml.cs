@@ -31,12 +31,45 @@ namespace WordADay
         {
             InitializeComponent();
             newWord();
+            checkSpeech();
         }
 
+        public void checkSpeech()
+        {
+            if (language.SelectedIndex > 0)
+            {
+                button3.IsEnabled = false;
+            }
+        }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             string define = label1.Content.ToString();
-            System.Diagnostics.Process.Start("http://www.dictionary.reference.com/browse/" + define);
+            if (language.SelectedIndex == 0)
+            {
+                System.Diagnostics.Process.Start("http://www.dictionary.reference.com/browse/" + define);
+            }
+            else
+            {
+                if (language.SelectedIndex == 1)
+                {
+                    System.Diagnostics.Process.Start("http://www.spanish.dictionary.com/define/" + define);
+                }
+                else
+                {
+                    if (language.SelectedIndex == 2)
+                    {
+                        System.Diagnostics.Process.Start("http://www.collinsdictionary.com/dictionary/german-english/" + define + "?showCookiePolicy=true");
+                    }
+                    else
+                    {
+                        if (language.SelectedIndex == 3)
+                        {
+                            System.Diagnostics.Process.Start("http://www.collinsdictionary.com/dictionary/french-english/" + define + "?showCookiePolicy=true");
+                        }
+                    }
+                }
+                
+            }
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
@@ -47,8 +80,39 @@ namespace WordADay
         public void newWord()
         {
             #region Create path variables
-            string dictionarypath = Directory.GetCurrentDirectory() + "/dictionary.txt";
-            string path = Directory.GetCurrentDirectory() + "/excludedwords.txt";
+            string dictionarypath = "generic";
+            string path = "generic";
+            // Setting the dictionary path and excluded words path so the program doesn't bug out. It will
+            // be changed in a second.
+            if (language.SelectedIndex == 0)
+            {
+                dictionarypath = Directory.GetCurrentDirectory() + "/Dictionaries/dictionary.txt";
+                path = Directory.GetCurrentDirectory() + "/Dictionaries/excludedwords.txt";
+            }
+            else
+            {
+                if (language.SelectedIndex == 1)
+                {
+                    dictionarypath = Directory.GetCurrentDirectory() + "/Dictionaries/spanishdictionary.txt";
+                    path = Directory.GetCurrentDirectory() + "/Dictionaries/excludedwords.txt";
+                }
+                else
+                {
+                    if (language.SelectedIndex == 2)
+                    {
+                        dictionarypath = Directory.GetCurrentDirectory() + "/Dictionaries/germandictionary.txt";
+                        path = Directory.GetCurrentDirectory() + "/Dictionaries/excludedwords.txt";
+                    }
+                    else
+                    {
+                        if (language.SelectedIndex == 3)
+                        {
+                            dictionarypath = Directory.GetCurrentDirectory() + "/Dictionaries/frenchdictionary.txt";
+                            path = Directory.GetCurrentDirectory() + "/Dictionaries/excludedwords.txt";
+                        }
+                    }
+                }
+            }
             #endregion
 
             #region Setup
@@ -103,9 +167,16 @@ namespace WordADay
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            SpeechSynthesizer say = new SpeechSynthesizer();
-            say.SetOutputToDefaultAudioDevice();
-            say.Speak(label1.Content.ToString());
+            if (language.SelectedIndex == 0)
+            {
+                SpeechSynthesizer say = new SpeechSynthesizer();
+                say.SetOutputToDefaultAudioDevice();
+                say.Speak(label1.Content.ToString());
+            }
+            else
+            {
+                
+            }
         }
 
 
@@ -127,7 +198,7 @@ namespace WordADay
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            string path = Directory.GetCurrentDirectory() + "/excludedwords.txt";
+            string path = Directory.GetCurrentDirectory() + "/Dictionaries/excludedwords.txt";
             string allpastwords = File.ReadAllText(path);
             pastwordsbox.Text = allpastwords;
             pastwords.IsOpen = true;
@@ -135,9 +206,14 @@ namespace WordADay
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            string path = Directory.GetCurrentDirectory() + "/excludedwords.txt";
+            string path = Directory.GetCurrentDirectory() + "/Dictionaries/excludedwords.txt";
             File.WriteAllText(path, "");
             pastwordsbox.Text = " ";
+        }
+
+        private void language_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            checkSpeech();
         }
 
     }
