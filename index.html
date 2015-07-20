@@ -1,26 +1,21 @@
 <html>
   <head>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script>
     function newWord() {
-      var request = new XMLHttpRequest();
-      request.onload = function() {
-          // get the file contents
-          var fileContent = this.responseText;
-          // split into lines
-          var fileContentLines = fileContent.split( '\n' );
-          // get a random index (line number)
-          var randomLineIndex = Math.floor( Math.random() * fileContentLines.length );
-          // extract the value
-          var randomLine = fileContentLines[ randomLineIndex ];
-      
-          // add the random line in a div
-          document.getElementsByName( 'random-phrase' )[0].innerHTML = randomLine;
-      };
-      request.open( 'GET', 'dictionary.txt', true );
-      request.send();
+      $.ajax({
+        url: "https://gist.githubusercontent.com/sargeant45/50a04fd203da9e770dfa/raw/dictionary.json",
+        type: "JSONP",
+        success: function(data) {
+          var names = Object.keys(data);
+          var random = Math.floor((Math.random() * data.length - 1) + 1);
+          document.getElementsByName('random-phrase')[0].innerHTML = names[random];
+          document.getElementById("description").innerHTML = data[names[random]];
+        }
+      })
     }
     function define() {
-      var word = document.getElementsByName ( 'random-phrase' )[0].innerHTML;
+      var word = document.getElementsByName( 'random-phrase' )[0].innerHTML;
       window.open("http://dictionary.reference.com/browse/" + word)
     }
     </script>
@@ -37,7 +32,8 @@
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);">
       <h1 style="font-family: Arial, Helvetica, sans-serif; font-size: 50px;" name="random-phrase" align="center">Loading a word...</h1>
-      
+      <br>
+      <h2 id="description" style="font-family: Arial, Helvetica, sans-serif; font-size: 25px;" align="center">Loading the description...</h2>
     </div>
     <div style="
   position: fixed; /*or absolute*/
@@ -51,6 +47,7 @@
       <button onclick="newWord()">New Word</button>
       <button onclick="define()">Define</button>
       <script>newWord()</script>
+      
     </div>
   </body>
 </html>
